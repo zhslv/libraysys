@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhs.sys.mapper.BookInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhs.sys.domain.BookInfo" >
+    <id column="bookid" property="bookid" jdbcType="INTEGER" />
+    <result column="bookname" property="bookname" jdbcType="VARCHAR" />
+    <result column="booktype" property="booktype" jdbcType="INTEGER" />
+    <result column="bookauthor" property="bookauthor" jdbcType="VARCHAR" />
+    <result column="publishpress" property="publishpress" jdbcType="VARCHAR" />
+    <result column="publishdate" property="publishdate" jdbcType="DATE" />
+    <result column="isborrow" property="isborrow" jdbcType="INTEGER" />
+    <result column="createdBy" property="createdby" jdbcType="VARCHAR" />
+    <result column="creationtime" property="creationtime" jdbcType="DATE" />
+    <result column="lastupdatetime" property="lastupdatetime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      bookid, bookname, booktype, bookauthor, publishpress, publishdate, isborrow, createdBy, 
+      creationtime, lastupdatetime
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    bookid,bookname,booktype,bookauthor,publishpress,publishdate,isborrow,createdBy,creationtime,lastupdatetime
+    from bookinfo
+    where bookid = #{bookid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bookinfo
+    where bookid = #{bookid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhs.sys.domain.BookInfo" >
+    insert into bookinfo (bookid, bookname, booktype, 
+      bookauthor, publishpress, publishdate, 
+      isborrow, createdBy, creationtime, 
+      lastupdatetime)
+    values (#{bookid,jdbcType=INTEGER}, #{bookname,jdbcType=VARCHAR}, #{booktype,jdbcType=INTEGER}, 
+      #{bookauthor,jdbcType=VARCHAR}, #{publishpress,jdbcType=VARCHAR}, #{publishdate,jdbcType=DATE}, 
+      #{isborrow,jdbcType=INTEGER}, #{createdby,jdbcType=VARCHAR}, #{creationtime,jdbcType=DATE}, 
+      #{lastupdatetime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhs.sys.domain.BookInfo" >
+    insert into bookinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookid != null" >
+        bookid,
+      </if>
+      <if test="bookname != null" >
+        bookname,
+      </if>
+      <if test="booktype != null" >
+        booktype,
+      </if>
+      <if test="bookauthor != null" >
+        bookauthor,
+      </if>
+      <if test="publishpress != null" >
+        publishpress,
+      </if>
+      <if test="publishdate != null" >
+        publishdate,
+      </if>
+      <if test="isborrow != null" >
+        isborrow,
+      </if>
+      <if test="createdby != null" >
+        createdBy,
+      </if>
+      <if test="creationtime != null" >
+        creationtime,
+      </if>
+      <if test="lastupdatetime != null" >
+        lastupdatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="bookname != null" >
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="booktype != null" >
+        #{booktype,jdbcType=INTEGER},
+      </if>
+      <if test="bookauthor != null" >
+        #{bookauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="publishpress != null" >
+        #{publishpress,jdbcType=VARCHAR},
+      </if>
+      <if test="publishdate != null" >
+        #{publishdate,jdbcType=DATE},
+      </if>
+      <if test="isborrow != null" >
+        #{isborrow,jdbcType=INTEGER},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="creationtime != null" >
+        #{creationtime,jdbcType=DATE},
+      </if>
+      <if test="lastupdatetime != null" >
+        #{lastupdatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhs.sys.domain.BookInfo" >
+    update bookinfo
+    <set >
+      <if test="bookname != null" >
+        bookname = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="booktype != null" >
+        booktype = #{booktype,jdbcType=INTEGER},
+      </if>
+      <if test="bookauthor != null" >
+        bookauthor = #{bookauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="publishpress != null" >
+        publishpress = #{publishpress,jdbcType=VARCHAR},
+      </if>
+      <if test="publishdate != null" >
+        publishdate = #{publishdate,jdbcType=DATE},
+      </if>
+      <if test="isborrow != null" >
+        isborrow = #{isborrow,jdbcType=INTEGER},
+      </if>
+      <if test="createdby != null" >
+        createdBy = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="creationtime != null" >
+        creationtime = #{creationtime,jdbcType=DATE},
+      </if>
+      <if test="lastupdatetime != null" >
+        lastupdatetime = #{lastupdatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where bookid = #{bookid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhs.sys.domain.BookInfo" >
+    update bookinfo
+    set bookname = #{bookname,jdbcType=VARCHAR},
+      booktype = #{booktype,jdbcType=INTEGER},
+      bookauthor = #{bookauthor,jdbcType=VARCHAR},
+      publishpress = #{publishpress,jdbcType=VARCHAR},
+      publishdate = #{publishdate,jdbcType=DATE},
+      isborrow = #{isborrow,jdbcType=INTEGER},
+      createdBy = #{createdby,jdbcType=VARCHAR},
+      creationtime = #{creationtime,jdbcType=DATE},
+      lastupdatetime = #{lastupdatetime,jdbcType=DATE}
+    where bookid = #{bookid,jdbcType=INTEGER}
+  </update>
+  <!--全查询-->
+  <select id="queryAllBook" resultMap="BaseResultMap" parameterType="com.zhs.sys.domain.BookInfo">
+    select 
+    <include refid="Base_Column_List"/>
+    from
+    bookinfo
+    where
+    booktype=#{booktype}
+        and bookname like "%"#{bookname}"%"
+        and isborrow=#{isborrow}
+  </select>
+</mapper>

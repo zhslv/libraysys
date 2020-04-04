@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhs.sys.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.zhs.sys.domain.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="usercode" property="usercode" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="registertime" property="registertime" jdbcType="DATE" />
+    <result column="lastlogintime" property="lastlogintime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      userid, usercode, password, email, gender, registertime, lastlogintime
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    userid,usercode,password,email,gender,registertime,lastlogintime
+    from users
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from users
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhs.sys.domain.User" >
+    insert into users (userid, usercode, password, 
+      email, gender, registertime, 
+      lastlogintime)
+    values (#{userid,jdbcType=INTEGER}, #{usercode,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{registertime,jdbcType=DATE}, 
+      #{lastlogintime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhs.sys.domain.User" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="usercode != null" >
+        usercode,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="registertime != null" >
+        registertime,
+      </if>
+      <if test="lastlogintime != null" >
+        lastlogintime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="usercode != null" >
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null" >
+        #{registertime,jdbcType=DATE},
+      </if>
+      <if test="lastlogintime != null" >
+        #{lastlogintime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhs.sys.domain.User" >
+    update users
+    <set >
+      <if test="usercode != null" >
+        usercode = #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="registertime != null" >
+        registertime = #{registertime,jdbcType=DATE},
+      </if>
+      <if test="lastlogintime != null" >
+        lastlogintime = #{lastlogintime,jdbcType=DATE},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhs.sys.domain.User" >
+    update users
+    set usercode = #{usercode,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      registertime = #{registertime,jdbcType=DATE},
+      lastlogintime = #{lastlogintime,jdbcType=DATE}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+
+  <!--用户登录-->
+  <select id="login" resultMap="BaseResultMap" >
+        select
+        *
+        from  users
+        where
+          usercode=#{usercode} and password=#{password}
+
+
+  </select>
+</mapper>
