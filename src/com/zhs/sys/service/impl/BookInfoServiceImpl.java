@@ -22,4 +22,12 @@ public class BookInfoServiceImpl implements BookInfoService {
         pageBean.setTotalCount((int)page.getTotal());
         return list;
     }
+
+    @Override
+    public void updateBookInfoBorrowState(Integer bookid, Integer state) {
+        BookInfo bookInfo = new BookInfo();
+        bookInfo.setBookid(bookid);
+        bookInfo.setIsborrow(state);
+        bookInfoMapper.updateByPrimaryKeySelective(bookInfo);
+    }
 }

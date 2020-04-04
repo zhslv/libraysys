@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BookInfoService {
     List<BookInfo> queryBookInfoForPage(PageBean pageBean,BookInfo bookInfo);
+
+    void updateBookInfoBorrowState(Integer bookid, Integer state);
 }

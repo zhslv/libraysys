@@ -31,4 +31,15 @@ public class BookInfoController {
         return "booklist";
     }
 
+    /**
+     * 借书
+     */
+
+    @RequestMapping("borrowBook")
+    public String borrowBook(BookInfoVo bookInfoVo){
+        Integer state=1;
+        bookInfoService.updateBookInfoBorrowState(bookInfoVo.getBookid(),state);
+
+        return "redirect:../bookInfo/queryAllBookInfo.action";
+    }
 }

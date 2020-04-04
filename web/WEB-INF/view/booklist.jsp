@@ -15,6 +15,33 @@
 <h1 align="center">图书列表</h1>
 <hr>
 <table align="center" width="60%" border="1" cellpadding="5">
+    <tr>
+        <th colspan="6" align="center">
+            <form action="" method="post">
+            图书分类:<select name="booktype" id="booktype">
+                    <option value="0" ${bookInfoVo.booktype==0?'selected':''}>---请选择---</option>
+                    <option value="1"${bookInfoVo.booktype==1?'selected':''}>科技</option>
+                    <option value="2"${bookInfoVo.booktype==2?'selected':''}>文学</option>
+                    <option value="3"${bookInfoVo.booktype==3?'selected':''}>小说</option>
+            </select>
+            图书名称:<input type="text" name="bookname" value="${bookInfoVo.bookname}" id="bookname"/>
+            是否借阅:
+                <select name="isborrow" id="isborrow">
+                    <option value="0"${bookInfoVo.isborrow==0?'selected':''}>---请选择---</option>
+                    <option value="1"${bookInfoVo.isborrow==1?'selected':''}>已借阅</option>
+                    <option value="2"${bookInfoVo.isborrow==2?'selected':''}>未借阅</option>
+                </select>
+            <input type="button" value="查询" onclick="doSearch()">
+            <input type="reset" value="重置" >
+            </form>
+        </th>
+    </tr>
+
+    <tr>
+        <th align="right" colspan="6">
+            欢迎您：${user.usercode}
+        </th>
+    </tr>
         <tr>
             <th>编号</th>
             <th>分类</th>
@@ -109,14 +136,27 @@
 </body>
 <script type="text/javascript">
     function changePage (pageNum) {
-        window.location.href="${pageContext.request.contextPath}/bookInfo/queryAllBookInfo.action?currPage="+pageNum;
+        var booktype=document.getElementById("booktype").value;
+        var bookname=document.getElementById("bookname").value;
+        var isborrow=document.getElementById("isborrow").value;
+        var params="currPage="+pageNum+"&booktype="+booktype+"&bookname="+bookname+"&isborrow="+isborrow;
+        window.location.href="${pageContext.request.contextPath}/bookInfo/queryAllBookInfo.action?"+params;
     }
     function changeSel(obj) {
         var pageNum=obj.value();
         changePage(pageNum);
     }
     function borrowBook(bookid) {
-        
+        window.location.href="${pageContext.request.contextPath}/bookInfo/borrowBook.action?bookid="+bookid;
+    }
+    function doSearch() {
+        changePage(1);
+
+        <%--var booktype=document.getElementById("booktype").value;--%>
+        <%--var bookname=document.getElementById("bookname").value;--%>
+        <%--var isborrow=document.getElementById("isborrow").value;--%>
+        <%--var params="currPage=1&booktype="+booktype+"&bookname="+bookname+"&isborrow="+isborrow;--%>
+        <%--window.location.href="${pageContext.request.contextPath}/bookInfo/queryAllBookInfo.action?"+params;--%>
     }
 </script>
 </html>
